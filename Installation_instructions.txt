@@ -1,0 +1,51 @@
+1. Install heroku
+	$ sudo snap install heroku --classic
+
+2. Login into heroku
+	$ heroku login
+
+3. To access the database postgresql should be installed locally on your laptop. Use the link given below to download it
+	https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-16-04
+	
+4. To check if postgresql has been installed successfully:
+	$ sudo -u postgres psql
+	
+	* postgres is the default user 
+	
+	** Create local database
+	$ sudo -u postgres createdb shravya
+	
+	* shravya is the name of our BE Project
+	* The owner of this database will be postgres (default owner)
+	* The default database is postgres
+	
+	** To change the database 
+	postgres=# \c shravya
+	
+	** To establish the conection between the database and the backend the user will require a password. By default postgres password authentication is disabled.
+	   Hence to set up the password use the following command	   
+	shravya=# \password
+	Enter new password:
+	Enter it again:
+	
+	
+5. To run the database from heroku
+	$ heroku pg:psql --app shravya
+	
+6. To setup the repository locally
+	(a) Clone the repository
+		$ git clone https://github.com/apoorva-19/Shravya.git
+		$ cd Shravya
+		
+	(b) Incase you make any changes to the database please make them to the local database first and if you are satisfied then change the main database
+		
+		* Initial commit
+		  export FLASK_APP=app.py
+		  flask db init
+		  flask db migrate -m "Some message"
+		  flask db upgrade
+		  
+		* Other occasions
+		  export FLASK_APP=app.py
+		  flask db migrate -m "Some message"
+		  flask db upgrade	

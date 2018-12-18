@@ -12,7 +12,10 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'mysecretkey'
 basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://dxpaploifbkaro:01cff4e4f0f77751bc2044db6d939dbf90f2dec6b61e0b3e6404928a4feb69a4@ec2-54-243-240-104.compute-1.amazonaws.com:5432/d24al1m741r689'
+#  Heroku database
+#  app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://dxpaploifbkaro:01cff4e4f0f77751bc2044db6d939dbf90f2dec6b61e0b3e6404928a4feb69a4@ec2-54-243-240-104.compute-1.amazonaws.com:5432/d24al1m741r689'
+#  Local database
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://postgres:shravya123@localhost/shravya'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)

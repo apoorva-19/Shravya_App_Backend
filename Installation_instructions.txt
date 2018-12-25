@@ -27,6 +27,9 @@
 	shravya=# \password
 	Enter new password:
 	Enter it again:
+
+	** To insert data from a file
+	\i <absolute path>
 	
 	
 5. To run the database from heroku

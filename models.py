@@ -33,7 +33,7 @@ class Words(db.Model):
     def __init__(self, word):
         self.word = word
         
-#database for storing shlokas
+#database for storing original and parsed shlokas
 class Shlokas(db.Model):
 
     __tablename__ = 'shlokas'
@@ -43,11 +43,12 @@ class Shlokas(db.Model):
     scripture = db.Column(db.String(45))
     chapter = db.Column(db.Integer, default=0)
     verse = db.Column(db.Integer)
-    shloka = db.Column(db.String(200))
+    org_shloka = db.Column(db.String(200))
+    parsed_shloka =db.Column(db.String(200))
 
-    def __init__(self, shloka_id, scripture, chapter, verse, shloka):
+    def __init__(self, shloka_id, scripture, chapter, verse, org_shloka):
         self.shloka_id = shloka_id
         self.scripture = scripture
         self.chapter = chapter
         self.verse = verse
-        self.shloka = shloka
+        self.org_shloka = org_shloka

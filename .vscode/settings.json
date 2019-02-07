@@ -1,4 +1,4 @@
 {
-    "python.pythonPath": "shravya/bin/python",
+    "python.pythonPath": "Shravya/bin/python",
     "python.linting.pylintArgs": ["--load-plugins", "pylint_flask"]
 }

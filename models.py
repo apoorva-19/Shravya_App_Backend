@@ -13,14 +13,16 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecretkey'
 basedir = os.path.abspath(os.path.dirname(__file__))
 #  Heroku database
-#  app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://dxpaploifbkaro:01cff4e4f0f77751bc2044db6d939dbf90f2dec6b61e0b3e6404928a4feb69a4@ec2-54-243-240-104.compute-1.amazonaws.com:5432/d24al1m741r689'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://dxpaploifbkaro:01cff4e4f0f77751bc2044db6d939dbf90f2dec6b61e0b3e6404928a4feb69a4@ec2-54-243-240-104.compute-1.amazonaws.com:5432/d24al1m741r689'
 #  Local database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://postgres:shravya123@localhost/shravya'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://shravya:shravya123@localhost/shravya'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-#database for storing words
+# database for storing words
+
+
 class Words(db.Model):
 
     __tablename__ = 'words'
@@ -32,23 +34,41 @@ class Words(db.Model):
 
     def __init__(self, word):
         self.word = word
-        
-#database for storing original and parsed shlokas
+
+# database for storing original and parsed shlokas
+
+
 class Shlokas(db.Model):
 
     __tablename__ = 'shlokas'
 
-    #Format for shloka id [##(Two character scripture code)##(chapter number)###(Verse number)]
+    # Format for shloka id [##(Two character scripture code)##(chapter number)###(Verse number)]
     shloka_id = db.Column(db.String(7), primary_key=True)
     scripture = db.Column(db.String(45))
     chapter = db.Column(db.Integer, default=0)
     verse = db.Column(db.Integer)
     org_shloka = db.Column(db.String(200))
-    parsed_shloka =db.Column(db.String(200))
+    parsed_shloka = db.Column(db.String(200))
 
-    def __init__(self, shloka_id, scripture, chapter, verse, org_shloka):
+    def __init__(self, shloka_id, scripture, chapter, verse, org_shloka, parswd_shloka):
         self.shloka_id = shloka_id
         self.scripture = scripture
         self.chapter = chapter
         self.verse = verse
         self.org_shloka = org_shloka
+        self.parsed_shloka = parsed_shloka
+
+    @property
+    def serialize(self):
+        """Return object data in easily serializeable format"""
+        return {
+            'shloka_id': self.shloka_id,
+            'scripture': self.scripture,
+            'chapter': self.chapter,
+            'verse': self.verse,
+            'org_shloka': self.org_shloka,
+            'parsed_shloka': self.parsed_shloka
+        }
+
+    def __repr__(self):
+        return "shloka_id: {}\n scripture: {}\n chapter: {}\n verse: {}\n org_shloka: {}\n parsed_shloka: {}\n".format(self.shloka_id, self.scripture, self.chapter, self.verse, self.org_shloka, self.parsed_shloka)
